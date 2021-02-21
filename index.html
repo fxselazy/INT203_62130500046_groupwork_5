@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Gallery</title>
+    <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+    <!-- Using via Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- https://tailwindcss.com/docs/installation -->
+    <!-- Using Tailwind via CDN -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+    <!-- Vue CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <body class="bg-blue-200">
+    <div id="app">
+      <div class="container px-8 py-16 mx-auto lg:px-4">
+        <h1 class="text-xl text-center">Photo Gallery</h1>
+        <div class="text-xl text-center">
+          <span>Liked ({{countLike}})</span>
+          &nbsp;
+          <span>Result Photo ({{countShow}})</span>
+        </div>
+        <div class="text-center mt-4">
+          <span v-show="isSearch" class="material-icons" @click="startSearch">search</span>
+            <div v-show="!isSearch">
+                <input class="border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
+                <button @click="cancelSearch" class="material-icons">cancel</button>
+                <p v-show="hasResult"> Not Found </p>
+                <p>Search word : {{filteredList}}</p>
+            </div>  
+        </div>
+        <div class="flex flex-wrap text-center">
+          <div class=" container px-8 py-6 lg:w-1/3 md:w-full" v-for="(picture,index) in searchPic">
+            <div class=" group text-center text-white ">
+              <button @click="showFavIcon(picture.alter)"  @dblclick="toggleView(index)" class="group-hover:opacity-80" >
+                <img :src="picture.path " class="h-full w-full">
+              </button>
+              <p class="text-opacity-0 text-xl group-hover:text-opacity-100 group-hover:text-black"  >{{picture.alter}} </p>
+            </div>
+            <p v-show="picture.showFav" style="color: red;" class="material-icons mt-2">
+                favorite
+            </p>
+            <!-- <div>
+              <span class="material-icons" viewBox="0 0 24 24" @click="toggleModal(pic.name)"> open_in_full </span>
+            </div> -->
+          </div>
+        </div>
+        <div v-show="hasView" class="grid justify-items-stretch flex flex-col  p-3 m-2" style="background-color:#21211f;">
+          <span class="material-icons" style="color: white;" v-on:click="hasView=!hasView">
+            disabled_by_default
+            </span>
+          <img v-bind:src="viewImg" style="width: 80%;" class="justify-self-center"/>
+        </div>
+      </div>
+    </div>
+    <!-- my main.js -->
+    <script src="./main.js"></script>
+  </body>
+</html>
