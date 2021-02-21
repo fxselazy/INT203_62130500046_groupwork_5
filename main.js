@@ -33,8 +33,9 @@ const app = {
             this.isSearch = !this.isSearch;
             this.searchField = '';
         },
-        toggleView(index){
-            this.viewImg = this.pictures[index].path;
+        toggleView(text){
+            const temp = this.pictures.findIndex(pic => pic.alter == text)
+            this.viewImg = this.pictures[temp].path;
             this.hasView = true;
         }
         
