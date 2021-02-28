@@ -1,4 +1,4 @@
-const app = {
+const app = Vue.createApp({
     data() {
         return {
             pictures: [
@@ -38,7 +38,6 @@ const app = {
             this.viewImg = this.pictures[temp].path;
             this.hasView = true;
         }
-        
     },
     computed:{
         countLike(){
@@ -50,15 +49,13 @@ const app = {
         filteredList(){
             // return this.pictures.filter(pic => {
             //     // return this.showPic = pic.alter.toLowerCase().includes(this.searchField.toLowerCase())
-                
             //     });  
-            this.showPic = this.pictures.filter(pic => pic.alter.toLowerCase().search(this.searchField.toLowerCase()) > -1)  
-            return this.searchField  
-        },
-        searchPic(){
+            // this.showPic = this.pictures.filter(pic => pic.alter.toLowerCase().search(this.searchField.toLowerCase()) > -1)  
+            // return this.searchField  
+            this.showPic = this.pictures.filter(pic => pic.alter.toLowerCase().search(this.searchField.toLowerCase()) > -1) 
             this.hasResult = !this.showPic.length
-            return this.showPic ?  this.showPic : this.pictures;
-        }
+            return this.showPic ? this.showPic : this.pictures;
+        },
     }
-};
-Vue.createApp(app).mount('#app');
+});
+// Vue.createApp(app).mount('#app');

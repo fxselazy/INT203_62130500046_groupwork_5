@@ -24,18 +24,12 @@
           &nbsp;
           <span>Result Photo ({{countShow}})</span>
         </div>
-        <div class="text-center mt-4">
-          <span v-show="isSearch" class="material-icons" @click="startSearch">search</span>
-            <div v-show="!isSearch">
-                <input class="border-2 w-1/2" v-model="searchField" type="text" placeholder="Search something...">
-                <button @click="cancelSearch" class="material-icons">cancel</button>
-                <p v-show="hasResult"> Not Found </p>
-                <p>Search word : {{filteredList}}</p>
-            </div>  
-        </div>
+        <!-- SearchPhoto -->
+        <photo-search :search="isSearch" v-model:search-field="searchField" @start-search="startSearch" @cancel-search="cancelSearch" @has-pic="hasResult"></photo-search>
+        <!--PhotoItem-->
         <div class="flex flex-wrap text-center">
-          <div class=" container px-8 py-6 lg:w-1/3 md:w-full" v-for="(picture,index) in searchPic">
-            <div class=" group text-center text-white ">
+          <div class=" container px-8 py-6 lg:w-1/3 md:w-full" v-for="(picture,index) in filteredList">
+            <!-- <div class=" group text-center text-white ">
               <button @click="showFavIcon(picture.alter)"  @dblclick="toggleView(picture.alter)" class="group-hover:opacity-80" >
                 <img :src="picture.path " class="h-full w-full">
               </button>
@@ -43,21 +37,27 @@
             </div>
             <p v-show="picture.showFav" style="color: red;" class="material-icons mt-2">
                 favorite
-            </p>
-            <!-- <div>
-              <span class="material-icons" viewBox="0 0 24 24" @click="toggleModal(pic.name)"> open_in_full </span>
-            </div> -->
+            </p> -->
+            <photo-item @show-fav-icon="showFavIcon" @toggle-view="toggleView" :pic=picture></photo-item>
           </div>
         </div>
-        <div v-show="hasView" class="grid justify-items-stretch flex flex-col  p-3 m-2" style="background-color:#21211f;">
+        <!--PhotoView-->
+        <!-- <div v-show="hasView" class="grid justify-items-stretch flex flex-col  p-3 m-2" style="background-color:#21211f;">
           <span class="material-icons" style="color: white;" v-on:click="hasView=!hasView">
             disabled_by_default
             </span>
           <img v-bind:src="viewImg" style="width: 80%;" class="justify-self-center"/>
-        </div>
+        </div> -->
+        <Photo-View :view="hasView" :view-src="viewImg" @has-view = "hasView = false" ></Photo-View>
       </div>
     </div>
     <!-- my main.js -->
     <script src="./main.js"></script>
+    <script src="./components/PhotoItem.js"></script>
+    <script src="./components/PhotoView.js"></script>
+    <script src="./components/PhotoSearch.js"></script>
+    <script>
+      app.mount('#app')
+   </script>
   </body>
 </html>
